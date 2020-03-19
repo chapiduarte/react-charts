@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import "./App.css";
-
+import { Steps } from "intro.js-react";
+import "intro.js/introjs.css";
+import { Button } from "devextreme-react";
 import {
   errorNumBox,
   warningNumBox,
@@ -16,6 +17,8 @@ import am4themes_dark from "@amcharts/amcharts4/themes/dark";
 import { notifyTemplate } from "./NotifyTemplate";
 import "devextreme/dist/css/dx.common.css";
 import "devextreme/dist/css/dx.dark.css";
+import "intro.js/introjs.css";
+import "./App.css";
 
 am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
@@ -45,7 +48,33 @@ class App extends Component {
       warningThresh: 98,
       range: 10,
       used: [],
-      items: []
+      items: [],
+      stepsEnabled: false,
+      steps: [
+        {
+          element: ".firstStep",
+          intro: `This page will show an error notification when the random number provided is >= to this number.
+             To change this number just enter a number and click enter`
+        },
+        {
+          element: ".secondStep",
+          intro: `This page will show a warning notification when the random number provided is >= to this number and < than the error threshold. 
+            To change this number just enter a number and click enter`
+        },
+        {
+          element: ".thirdStep",
+          intro: `This value is read only and it represents the assumption that the biggest random value will be 100 `
+        },
+        {
+          element: ".fourthStep",
+          intro: `This value is read only and it represents the assumption that the smallest random value will be -100 `
+        },
+        {
+          element: ".fifthStep",
+          intro: `This number is used to create the range. To change this number just enter a number and click enter or focus out. 
+          Please note we don't store previous values so when changed we will reload the graph and begin grouping using the desired range`
+        }
+      ]
     };
   }
   showNotifies(col) {
@@ -64,7 +93,7 @@ class App extends Component {
     } else if (parseInt(col["value"]) >= this.state.errorThresh) {
       console.log("ERROR");
       notifyTemplate(
-        `${parseInt(col["value"])} is  >= to the error threshold ${
+        `${parseInt(col["value"])} is >= to the error threshold ${
           this.state.errorThresh
         }`,
         "error",
@@ -74,6 +103,9 @@ class App extends Component {
   }
   changeErrorThresh = e => {
     this.setState({ errorThresh: e.value });
+  };
+  helpButtonClick = e => {
+    this.setState(prevState => ({ stepsEnabled: !prevState.stepsEnabled }));
   };
   changeWarningThresh = e => {
     this.setState({ warningThresh: e.value });
@@ -310,14 +342,26 @@ class App extends Component {
 
     this.chart = chart;
   }
+  onExit = () => {
+    this.setState(() => ({ stepsEnabled: false }));
+  };
 
   render() {
     return (
-      <div style={{ width: "100%", height: "500px" }}>
+      <div className="container">
+        <Steps
+          enabled={this.state.stepsEnabled}
+          steps={this.state.steps}
+          initialStep={0}
+          onExit={this.onExit}
+        />
         {errorNumBox(this)}
         {warningNumBox(this)}
         {minNumBox(this)}
         {maxNumBox(this)}
+        <div className="displayBlock marginLeft15px">
+          <Button icon="info" onClick={this.helpButtonClick} />
+        </div>
         <div id="chartdiv" style={{ margin: "50px", height: "500px" }}></div>
         {rangeNumBox(this)}
         <div id="barChart" style={{ margin: "50px", height: "500px" }}></div>

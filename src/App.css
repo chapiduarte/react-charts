@@ -40,27 +40,49 @@ body {
     transform: rotate(360deg);
   }
 }
+.container {
+  width: 100%;
+  height: 500px;
+  margin: 20px;
+}
 .Errlabel {
-  padding: 20px;
+  margin: 20px;
   display: inline-block;
 }
 
 .Errvalue {
   display: inline-block;
+  margin: 20px;
 }
 
 .displayBlock {
-  padding-top: 20px;
+  margin-top: 20px;
   display: inline-block;
 }
 
 .marginLeft {
   margin-left: 100px;
 }
-
+.marginLeft15px {
+  margin-left: 15px;
+}
 .groupingClass {
-  padding-top: 20px;
   display: inline-block;
   margin-top: 100px;
   margin-left: 100px;
+}
+.introjs-tooltiptext {
+  color: black;
+}
+.introjs-helperLayer {
+  box-sizing: content-box;
+  position: absolute;
+  z-index: -1;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #777;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-out;
 }

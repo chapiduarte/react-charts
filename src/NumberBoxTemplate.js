@@ -3,7 +3,7 @@ import { NumberBox } from "devextreme-react/number-box";
 
 export function errorNumBox(prop) {
   return (
-    <div className="displayBlock marginLeft">
+    <div className="firstStep displayBlock marginLeft">
       <div className="Errlabel">Error Threshold</div>
       <div className="Errvalue">
         <NumberBox
@@ -23,7 +23,7 @@ export function errorNumBox(prop) {
 
 export function warningNumBox(prop) {
   return (
-    <div className="displayBlock">
+    <div className="secondStep displayBlock">
       <div className="Errlabel">Warning Threshold</div>
       <div className="Errvalue">
         <NumberBox
@@ -43,7 +43,7 @@ export function warningNumBox(prop) {
 
 export function rangeNumBox(prop) {
   return (
-    <div className="groupingClass">
+    <div className="fifthStep groupingClass">
       <div className="Errlabel">Bar Graph Range Grouping</div>
       <div className="Errvalue">
         <NumberBox
@@ -61,9 +61,8 @@ export function rangeNumBox(prop) {
 }
 
 export function maxNumBox(prop) {
-  console.log(prop);
   return (
-    <div className="displayBlock">
+    <div className="fourthStep displayBlock">
       <div className="Errlabel">Max Random #</div>
       <div className="Errvalue">
         <NumberBox
@@ -79,7 +78,7 @@ export function maxNumBox(prop) {
 
 export function minNumBox(prop) {
   return (
-    <div className="displayBlock">
+    <div className="thirdStep displayBlock">
       <div className="Errlabel">Min Random #</div>
       <div className="Errvalue">
         <NumberBox
