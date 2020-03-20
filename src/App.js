@@ -9,7 +9,6 @@ import {
   maxNumBox,
   minNumBox
 } from "./NumberBoxTemplate";
-
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -63,26 +62,26 @@ class App extends Component {
         },
         {
           element: ".thirdStep",
-          intro: `This value is read only and it represents the assumption that the biggest random value will be 100 `
+          intro: `This value is read only and it represents the assumption that the lowest random number will be -100 `
         },
         {
           element: ".fourthStep",
-          intro: `This value is read only and it represents the assumption that the smallest random value will be -100 `
+          intro: `This value is read only and it represents the assumption that the highest random number will be 100 `
         },
         {
           element: ".fifthStep",
-          intro: `This number is used to create the range. To change this number just enter a number and click enter or focus out. 
-          Please note we don't store previous values so when changed we will reload the graph and begin grouping using the desired range`
+          intro: `This number is used to create the group range. To change this number just enter a number and click enter or focus out. 
+          Please note we don't store previous values so when this value is changed we will reload the graph and begin grouping using the new desired range`
         }
       ]
     };
   }
   showNotifies(col) {
     if (
+      col["value"] &&
       parseInt(col["value"]) >= this.state.warningThresh &&
       parseInt(col["value"]) < this.state.errorThresh
     ) {
-      console.log("WARNING");
       notifyTemplate(
         `${parseInt(col["value"])} is  >= to the warning threshold ${
           this.state.warningThresh
@@ -90,8 +89,10 @@ class App extends Component {
         "warning",
         5000
       );
-    } else if (parseInt(col["value"]) >= this.state.errorThresh) {
-      console.log("ERROR");
+    } else if (
+      col["value"] &&
+      parseInt(col["value"]) >= this.state.errorThresh
+    ) {
       notifyTemplate(
         `${parseInt(col["value"])} is >= to the error threshold ${
           this.state.errorThresh
@@ -360,11 +361,15 @@ class App extends Component {
         {minNumBox(this)}
         {maxNumBox(this)}
         <div className="displayBlock marginLeft15px">
-          <Button icon="info" onClick={this.helpButtonClick} />
+          <Button
+            icon="info"
+            onClick={this.helpButtonClick}
+            hint="Click to see how to use this page"
+          />
         </div>
-        <div id="chartdiv" style={{ margin: "50px", height: "500px" }}></div>
+        <div id="chartdiv" className="charts"></div>
         {rangeNumBox(this)}
-        <div id="barChart" style={{ margin: "50px", height: "500px" }}></div>
+        <div id="barChart" className="charts"></div>
       </div>
     );
   }

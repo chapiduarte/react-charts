@@ -86,3 +86,7 @@ body {
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-out;
 }
+.charts {
+  margin: 50px;
+  height: 500px;
+}
