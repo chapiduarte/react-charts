@@ -23,15 +23,6 @@ am4core.useTheme(am4themes_dark);
 am4core.useTheme(am4themes_animated);
 require("dotenv-expand")(require("dotenv").config());
 const socketIOClient = require("socket.io-client");
-var socket = socketIOClient.connect("http://localhost:3000");
-console.log(socket);
-socket.on("connection", function(client) {
-  console.log("connect");
-
-  client.on("disconnect", function() {
-    console.log("disconnect");
-  });
-});
 
 class App extends Component {
   constructor(props) {
